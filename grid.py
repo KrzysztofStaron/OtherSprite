@@ -1,12 +1,11 @@
-from cell import cell
-
 class grid():
 
     def __init__(self, can, gridSize, canSize):
         self.can = can
+        self.color = ("#222", "#fff")
         self.gridSize = gridSize
         self.canSize = canSize
-        self.cell = [[cell(self.can)] * gridSize] * gridSize
+        self.cell = [["#fff"] * gridSize] * gridSize
         self.cellSize = int(self.canSize / self.gridSize)
 
         self.can.bind("<Motion>", self.onMove)
@@ -18,19 +17,32 @@ class grid():
     def createGrid(self):
         for x in range(self.gridSize):
             for y in range(self.gridSize):
-                self.cell[x][y].obj = self.can.create_rectangle(x * self.cellSize, y * self.cellSize, x * self.cellSize + self.cellSize, y * self.cellSize + self.cellSize, outline="#000", fill="#fb0")
-
+                self.createCell(x, y)
+        
         self.can.create_line(0, 1, self.canSize, 1)
         self.can.create_line(1, 0, 1, self.canSize)
         self.can.create_line(self.canSize, 0, self.canSize, self.canSize)
         self.can.create_line(0, self.canSize, self.canSize + 1, self.canSize)
 
     def onMove(self, event):
-        print ("x: ",event.x, "y:",event.y)
+        pos = (event.x, event.y)
+        print(pos)
 
     def onClickLeft(self, event):
-        print ("Left:  x:",event.x, "y:",event.y)
+        pos = self.mouseTocell(event.x, event.y)
+        self.createCell(pos[0], pos[1], self.color[0])
 
     def onClickRight(self, event):
-        print ("Right: x:",event.x, "y:",event.y)
+        pos = self.mouseTocell(event.x, event.y)
+        self.createCell(pos[0], pos[1], self.color[1])
+    
+    def mouseTocell(self, x, y):
+        posX = x / self.cellSize
+        posY = y / self.cellSize
 
+        posX -= posX % 1
+        posY -= posY % 1
+        return int(posX), int(posY)
+
+    def createCell(self, x, y, fillColor = "#fff"):
+        self.can.create_rectangle(x * self.cellSize, y * self.cellSize, x * self.cellSize + self.cellSize, y * self.cellSize + self.cellSize, outline="#000", fill=fillColor)
