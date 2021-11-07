@@ -58,7 +58,7 @@ class grid():
         return int(posX), int(posY)
 
     def createCell(self, x, y, fillColor = "#ffffff"):
-        self.cell[x * self.gridSize + y] = fillColor
+        self.cell[y * self.gridSize + x] = fillColor
         #print(self.cell[x])
         self.can.create_rectangle(x * self.cellSize, y * self.cellSize, x * self.cellSize + self.cellSize, y * self.cellSize + self.cellSize, outline="#000000", fill=fillColor)
 
