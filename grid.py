@@ -7,6 +7,7 @@ class grid():
         self.canSize = canSize
         self.cell = [["#fff"] * gridSize] * gridSize
         self.cellSize = int(self.canSize / self.gridSize)
+        self.cellSize -= self.cellSize % 1
 
         self.can.bind("<Motion>", self.onMove)
         self.can.bind("<Button-1>", self.onClickLeft)
@@ -45,4 +46,10 @@ class grid():
         return int(posX), int(posY)
 
     def createCell(self, x, y, fillColor = "#fff"):
+        print(x)
         self.can.create_rectangle(x * self.cellSize, y * self.cellSize, x * self.cellSize + self.cellSize, y * self.cellSize + self.cellSize, outline="#000", fill=fillColor)
+
+        self.can.create_line(0, 1, self.canSize, 1)
+        self.can.create_line(1, 0, 1, self.canSize)
+        self.can.create_line(self.canSize, 0, self.canSize, self.canSize)
+        self.can.create_line(0, self.canSize, self.canSize + 1, self.canSize)
