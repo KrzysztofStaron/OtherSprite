@@ -1,8 +1,11 @@
+import json
+
 class grid():
 
     def __init__(self, can, gridSize, canSize):
+        self.updateColors()
+
         self.can = can
-        self.color = ("#222", "#fff")
         self.gridSize = gridSize
         self.canSize = canSize
         self.cell = [["#fff"] * gridSize] * gridSize
@@ -14,6 +17,11 @@ class grid():
         self.can.bind("<Button-1>", self.onClickLeft)
         self.can.bind("<Button-3>", self.onClickRight)
         self.createGrid()
+
+    def updateColors(self):
+        with open('data.json') as json_file:
+            data = json.load(json_file)
+        self.color = (data["colorLeft"], data["colorRight"])
 
     def createGrid(self):
         for x in range(self.gridSize):
@@ -29,10 +37,12 @@ class grid():
         pos = (event.x, event.y)
 
     def onClickLeft(self, event):
+        self.updateColors()
         pos = self.mouseTocell(event.x, event.y)
         self.createCell(pos[0], pos[1], self.color[0])
 
     def onClickRight(self, event):
+        self.updateColors()
         pos = self.mouseTocell(event.x, event.y)
         self.createCell(pos[0], pos[1], self.color[1])
     
@@ -45,6 +55,7 @@ class grid():
         return int(posX), int(posY)
 
     def createCell(self, x, y, fillColor = "#fff"):
+        self.cell[x][y] = fillColor
         self.can.create_rectangle(x * self.cellSize, y * self.cellSize, x * self.cellSize + self.cellSize, y * self.cellSize + self.cellSize, outline="#000", fill=fillColor)
 
         self.can.create_line(0, 1, self.canSize, 1)
