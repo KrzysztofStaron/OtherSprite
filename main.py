@@ -6,7 +6,7 @@ root.resizable(False, False)
 root.geometry("700x700")
 
 canvasSize = 500
-resolution = 16
+resolution = 8
 
 canvasSize -= canvasSize % resolution
 canvas = Canvas(root, width = canvasSize, height = canvasSize, bg = "white")
