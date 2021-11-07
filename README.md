@@ -1,1 +1,1 @@
-otherSprite
+python main.py
