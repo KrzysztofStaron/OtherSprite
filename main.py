@@ -1,7 +1,7 @@
 from tkinter import *
 from grid import grid
 root = Tk()
-root.attributes('-fullscreen', False)
+root.title('OtherSprite')
 root.geometry("700x700")
 
 canvasSize = 500
