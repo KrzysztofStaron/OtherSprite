@@ -1,28 +1,34 @@
-def createGrid(can, gridSize, canSize):
-    can.bind("<Motion>", onMove)
-    can.bind("<Button-1>", onClickLeft)
-    can.bind("<Button-2>", onClickRight)
-    can.bind("<Button-3>", onClickRight)
+class grid():
+    def __init__(self, can, gridSize, canSize):
+        self.can = can
+        self.gridSize = gridSize
+        self.canSize = canSize
 
-    cellSize = int(canSize / gridSize)
+    def createGrid(self):
+        self.can.bind("<Motion>", self.onMove)
+        self.can.bind("<Button-1>", self.onClickLeft)
+        self.can.bind("<Button-2>", self.onClickRight)
+        self.can.bind("<Button-3>", self.onClickRight)
 
-    can.create_line(0, 1, canSize, 1)
-    can.create_line(1, 0, 1, canSize)
-    can.create_line(canSize, 0, canSize, canSize)
-    can.create_line(0, canSize, canSize + 1, canSize)
+        cellSize = int(self.canSize / self.gridSize)
 
-    for y in range(gridSize):
-        can.create_line(y * cellSize, 0, y * cellSize, canSize)
+        self.can.create_line(0, 1, self.canSize, 1)
+        self.can.create_line(1, 0, 1, self.canSize)
+        self.can.create_line(self.canSize, 0, self.canSize, self.canSize)
+        self.can.create_line(0, self.canSize, self.canSize + 1, self.canSize)
 
-    for x in range(gridSize):
-        can.create_line(0, x * cellSize, canSize, x * cellSize)
+        for y in range(self.gridSize):
+            self.can.create_line(y * cellSize, 0, y * cellSize, self.canSize)
 
-def onMove(event):
-    print ("x: ",event.x, "y:",event.y)
+        for x in range(self.gridSize):
+            self.can.create_line(0, x * cellSize, self.canSize, x * cellSize)
 
-def onClickLeft(event):
-    print ("Left:  x:",event.x, "y:",event.y)
+    def onMove(self, event):
+        print ("x: ",event.x, "y:",event.y)
 
-def onClickRight(event):
-    print ("Right: x:",event.x, "y:",event.y)
+    def onClickLeft(self, event):
+        print ("Left:  x:",event.x, "y:",event.y)
+
+    def onClickRight(self, event):
+        print ("Right: x:",event.x, "y:",event.y)
 
