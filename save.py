@@ -13,6 +13,6 @@ def save(colors):
     im = Image.new('RGB', (size, size))
     im.putdata(rgbColors)
     path = 'images/'+datetime.now().strftime("%S-%M-%H-%d-%m-%y")+'.png'
-    open(path, "x")
+    open(path, "a")
     im.save(path)
     print("saved")
